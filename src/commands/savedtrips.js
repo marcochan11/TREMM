@@ -7,14 +7,28 @@ function chunk(text, max = 1900) {
   let cur = "";
 
   for (const line of lines) {
-    if ((cur + line + "\n").length > max) {
-      out.push(cur.trimEnd());
+    const candidate = cur ? `${cur}\n${line}` : line;
+
+    if (candidate.length <= max) {
+      cur = candidate;
+      continue;
+    }
+
+    if (cur) {
+      out.push(cur);
       cur = "";
     }
-    cur += line + "\n";
+
+    if (line.length <= max) {
+      cur = line;
+    } else {
+      for (let i = 0; i < line.length; i += max) {
+        out.push(line.slice(i, i + max));
+      }
+    }
   }
 
-  if (cur.trim()) out.push(cur.trimEnd());
+  if (cur.trim()) out.push(cur);
   return out;
 }
 
@@ -71,7 +85,7 @@ export default {
             `Trip ID: \`${trip.tripId}\`\n` +
             `Dates: ${trip.departDate} → ${trip.returnDate}\n` +
             `Adults: ${trip.adults}\n` +
-            `Origin: ${trip.originAirport}\n` +
+            `Origin: ${trip.originAirport ?? "N/A"}\n` +
             `Saved: ${formatSavedTime(trip.createdAt)}\n` +
             `Files: \`${trip.txtFileName}\`, \`${trip.jsonFileName}\``
           );
