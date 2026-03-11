@@ -25,18 +25,19 @@ export default {
       const lines = [`**Top Restaurants in ${location}**`, ""];
 
       result.restaurants.forEach((r, index) => {
+        const distKm = (r.distance / 1000).toFixed(1);
         lines.push(
           `**${index + 1}. ${r.name}**`,
           `Category: ${r.category}`,
           `Address: ${r.address}`,
-          r.description ? `Description: ${r.description}` : null,
+          `Distance from city center: ${distKm} km`,
+          `Description: ${r.description}`,
           `View on Google: <${r.url}>`,
           ""
         );
       });
 
       await interaction.editReply(lines.filter(v => v != null).join("\n"));
-      await interaction.editReply(lines.filter(v => v !== null && v !== undefined).join("\n"));
     } catch (err) {
       console.error("restaurants command error:", err);
       await interaction.editReply("Something Went Wrong With Getting Restaurants.");
