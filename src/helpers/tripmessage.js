@@ -52,21 +52,27 @@ function formatRestaurants(result) {
 
 function formatHotels(result) {
   if (!result?.ok) return result?.message ?? "Hotels unavailable.";
-  const list = (result.hotels ?? []).slice(0, 5);
+  const list = (result.hotels ?? []).slice(0, 5); // Kept to 5 to perfectly match newhotels!
   if (!list.length) return "No hotels found.";
   
   return list
-    .map((h) => {
+    .map((h, i) => {
       const stars = h.stars > 0 ? "⭐".repeat(h.stars) : "N/A";
-      // Fallback to "USD" if currency is somehow missing
-      const currency = h.currency ?? "USD"; 
+      const pricePerNight = h.price != null ? `$${h.price} ${h.currency ?? ""}`.trim() : "N/A";
+      
       const link = `https://www.google.com/search?q=${encodeURIComponent(h.name + " " + (h.city || "") + " hotel")}`;
       
-      return `**${h.name}**\n` +
-             `> **Rating:** ${stars}\n` +
-             `> **Price Per Night:** $${h.price} ${currency}\n` +
-             `> **Total Price:** $${h.totalPrice} ${currency}\n` +
-             `> [View Details](<${link}>)`;
+      let str = `**${i + 1}. ${h.name}**\n`;
+      str += `> **Rating:** ${stars}\n`;
+      str += `> **Price Per Night:** ${pricePerNight}\n`;
+      
+      if (h.totalPrice) {
+          str += `> **Total Price:** $${h.totalPrice} ${h.currency ?? ""}\n`;
+      }
+      
+      str += `> [View Details](<${link}>)`;
+      
+      return str;
     })
     .join("\n\n");
 }
