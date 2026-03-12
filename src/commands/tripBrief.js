@@ -1,8 +1,12 @@
-// src/commands/tripbrief.js
-import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { getTripBrief } from "../helpers/tripBrief.js";
-import { buildTripMessages } from "../helpers/tripmessage.js";
-import { SlashCommandBuilder, AttachmentBuilder } from "discord.js";
+// src/commands/tripBrief.js
+import {
+  SlashCommandBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  AttachmentBuilder,
+} from "discord.js";
+
 import { getTripBrief } from "../helpers/tripBrief.js";
 import { buildTripMessages } from "../helpers/tripmessage.js";
 import { saveTripPlan } from "../helpers/saveTripPlan.js";
