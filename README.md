@@ -68,10 +68,10 @@ Display how the bot works and explain each command.
 Generate a complete trip brief in one command.
 
 ### Usage
-- `/tripbrief destination:<place> depart:<YYYY-MM-DD> return:<YYYY-MM-DD> adults:<1-9> origin:<IATA> save:<yes|no>`
+- `/tripbrief destination:<place> depart:<YYYY-MM-DD> return:<YYYY-MM-DD> adults:<1-9> origin:<IATA> save:<true|false>`
 
 ### Example
-- `/tripbrief destination:"Los Angeles, CA" depart:2026-03-10 return:2026-03-14 adults:1 origin:SEA save:yes`
+- `/tripbrief destination:"Los Angeles, CA" depart:2026-03-10 return:2026-03-14 adults:1 origin:SEA save:true`
 
 ### Output
 - Summary (dates, trip length, resolved codes, section status)
@@ -86,7 +86,7 @@ Generate a complete trip brief in one command.
 - Weather is short-term and depends on provider coverage
 - Activities, hotels, and flights depend on API availability
 - Flights may require an origin IATA code
-- Save defaults to **no** unless the user chooses **yes**
+- Save defaults to **false** unless the user chooses **true**
 
 ---
 
@@ -370,4 +370,5 @@ syft . -o spdx-json > sbom.spdx.json
 TREMM is designed to make trip planning easier, faster, and more collaborative inside Discord. Instead of switching between multiple travel sites and apps, users can search, compare, save, and manage trip information directly in chat using slash commands.
 
 TREMM 2.1 pushes the project closer to a more complete travel assistant by combining trip discovery, trip storage, hotel tracking, and improved booking workflows into one bot.
+
 
